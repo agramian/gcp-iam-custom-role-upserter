@@ -1,0 +1,15 @@
+projectId: "your-project-id"
+# organizationId: "your-organization-id"
+roleId: "customRoleId"
+title: "Custom Role"
+description: "A custom role with specific permissions."
+stage: "ALPHA"
+predefinedRoles:
+  include:
+    - roles/firebase.viewer
+  exclude:
+    - roles/secretmanager.secretAccessor
+permissions:
+  include: []
+  exclude:
+    - resourcemanager.projects.list
