@@ -152,6 +152,32 @@ for permission in "${EXCLUDE_PERMISSIONS[@]}"; do
   ALL_PERMISSIONS=("${ALL_PERMISSIONS[@]/$permission}")
 done
 
+# Initialize a temporary array to hold filtered results.
+temp_list=()
+
+# Remove permissions which are single words not separated by periods.
+for permission in "${ALL_PERMISSIONS[@]}"; do
+  if [[ ! "$permission" =~ ^[a-zA-Z]+$ ]]; then
+    temp_list+=("$permission")
+  fi
+done
+
+# Update the original array.
+ALL_PERMISSIONS=("${temp_list[@]}")
+
+# Reset the temp array.
+temp_list=()
+
+# Remove permissions which end in "listEffective".
+for permission in "${ALL_PERMISSIONS[@]}"; do
+  if [[ ! "$permission" =~ listEffective$ ]]; then
+    temp_list+=("$permission")
+  fi
+done
+
+# Update the original array.
+ALL_PERMISSIONS=("${temp_list[@]}")
+
 # Sort and remove duplicate permissions.
 UNIQUE_PERMISSIONS=($(printf "%s\n" "${ALL_PERMISSIONS[@]}" | sort -u))
 
