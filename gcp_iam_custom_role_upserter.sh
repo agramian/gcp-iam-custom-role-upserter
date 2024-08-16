@@ -260,14 +260,24 @@ else
     gcloud iam roles create "$ROLE_ID" \
       $CONTEXT \
       --file "$STANDARD_YAML"
-    echo ""
-    echo "Custom role '$ROLE_ID' created successfully."
+    if [ $? -eq 0 ]; then
+        echo ""
+        echo "Custom role '$ROLE_ID' created successfully."
+    else
+        echo ""
+        echo "Failed to create custom role '$ROLE_ID'."
+    fi
   else
     gcloud iam roles update "$ROLE_ID" \
       $CONTEXT \
       --file "$STANDARD_YAML"
-    echo ""
-    echo "Custom role '$ROLE_ID' updated successfully."
+    if [ $? -eq 0 ]; then
+        echo ""
+        echo "Custom role '$ROLE_ID' updated successfully."
+    else
+        echo ""
+        echo "Failed to update custom role '$ROLE_ID'."
+    fi
   fi
 fi
 
